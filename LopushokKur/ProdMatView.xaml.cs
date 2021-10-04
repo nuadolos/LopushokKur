@@ -25,10 +25,37 @@ namespace LopushokKur
         {
             InitializeComponent();
 
+            var allTypes = LopushBase.GetContext().ProductType.ToList();
+            allTypes.Insert(0, new ProductType
+            {
+                Title = "Все типы"
+            });
+            CmbBoxFilt.ItemsSource = allTypes;
+
+            CmbBoxFilt.SelectedIndex = 0;
+
             LViewProdMat.ItemsSource = LopushBase.GetContext().ProductMaterial.ToList();
         }
 
+        private void UpdateData()
+        {
+            var currentData = LopushBase.GetContext().Product.ToList();
+
+            if (CmbBoxFilt.SelectedIndex > 0)
+                currentData = currentData.Where(p => p.ProductMaterial.Contains(CmbBoxFilt.SelectedItem as ProductType)).ToList();
+        }
+
         private void TxtBoxFilt_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void CmbBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void CmbBoxFilt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

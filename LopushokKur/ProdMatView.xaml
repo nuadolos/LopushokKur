@@ -20,8 +20,8 @@
         </Grid.RowDefinitions>
 
         <TextBox Text="Введите для поиска" FontSize="14" Padding="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="350" Height="30" Margin="5,10,0,10" x:Name="TxtBoxFilt" TextChanged="TxtBoxFilt_TextChanged"/>
-        <ComboBox Grid.Column="1" Width="175" Height="30" VerticalAlignment="Center" Margin="5" x:Name="CmbBoxSort"/>
-        <ComboBox HorizontalAlignment="Right" Width="150" Height="30" Margin="5" Grid.Column="2" x:Name="CmbBoxFilt"/>
+        <ComboBox Grid.Column="1" Width="175" Height="30" VerticalAlignment="Center" Margin="5" x:Name="CmbBoxSort" SelectionChanged="CmbBoxSort_SelectionChanged"/>
+        <ComboBox HorizontalAlignment="Right" Width="150" Height="30" Margin="5" Grid.Column="2" Name="CmbBoxFilt" SelectionChanged="CmbBoxFilt_SelectionChanged" DisplayMemberPath="Title"/>
 
         <ListView Grid.Row="1" Name="LViewProdMat" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" Grid.ColumnSpan="3">
             <ListView.ItemTemplate>
