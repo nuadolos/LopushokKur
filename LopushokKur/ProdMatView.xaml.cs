@@ -39,10 +39,12 @@ namespace LopushokKur
 
         private void UpdateData()
         {
-            var currentData = LopushBase.GetContext().Product.ToList();
+            var currentData = LopushBase.GetContext().ProductMaterial.ToList();
 
             if (CmbBoxFilt.SelectedIndex > 0)
-                currentData = currentData.Where(p => p.ProductMaterial.Contains(CmbBoxFilt.SelectedItem as ProductType)).ToList();
+                currentData = currentData.Where(p => p.Product.ProductType.Title == CmbBoxFilt.SelectedItem).ToList();
+
+            LViewProdMat.ItemsSource = currentData.ToList();
         }
 
         private void TxtBoxFilt_TextChanged(object sender, TextChangedEventArgs e)
@@ -57,7 +59,7 @@ namespace LopushokKur
 
         private void CmbBoxFilt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            UpdateData();
         }
     }
 }
