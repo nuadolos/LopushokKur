@@ -21,6 +21,8 @@ namespace LopushokKur
     /// </summary>
     public partial class ProdMatView : Page
     {
+        public bool SortReverse { get; set; }
+
         public ProdMatView()
         {
             InitializeComponent();
@@ -33,6 +35,7 @@ namespace LopushokKur
             CmbBoxFilt.ItemsSource = allTypes;
 
             CmbBoxFilt.SelectedIndex = 0;
+            CmbBoxSort.SelectedIndex = 0;
 
             LViewProdMat.ItemsSource = LopushBase.GetContext().ProductMaterial.ToList();
         }
@@ -42,9 +45,26 @@ namespace LopushokKur
             var currentData = LopushBase.GetContext().ProductMaterial.ToList();
 
             if (CmbBoxFilt.SelectedIndex > 0)
-                currentData = currentData.Where(p => p.Product.ProductType.Title == CmbBoxFilt.SelectedItem).ToList();
+                currentData = currentData.Where(p => p.Product.ProductType.Title == (CmbBoxFilt.SelectedValue as ProductType).Title.ToString()).ToList();
 
-            LViewProdMat.ItemsSource = currentData.ToList();
+            switch (CmbBoxSort.SelectedIndex)
+            {
+                case 0:
+                    {
+                        LViewProdMat.ItemsSource = currentData.ToList();
+                        break;
+                    }
+                case 1:
+                    {
+                        LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Product.Title).ToList();
+                        break;
+                    }
+                case 2:
+                    {
+                        LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Material.Cost).ToList();
+                        break;
+                    }
+            }
         }
 
         private void TxtBoxFilt_TextChanged(object sender, TextChangedEventArgs e)
