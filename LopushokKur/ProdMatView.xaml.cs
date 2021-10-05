@@ -74,7 +74,7 @@ namespace LopushokKur
 
         private void CmbBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            UpdateData();
         }
 
         private void CmbBoxFilt_SelectionChanged(object sender, SelectionChangedEventArgs e)
