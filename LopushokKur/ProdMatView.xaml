@@ -19,7 +19,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <TextBox Text="Введите для поиска" FontSize="14" Padding="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="350" Height="30" Margin="5,10,0,10" x:Name="TxtBoxFilt" TextChanged="TxtBoxFilt_TextChanged"/>
+        <TextBox Text="Введите для поиска" FontSize="14" Padding="4" HorizontalAlignment="Left" VerticalAlignment="Center" Width="350" Height="30" Margin="5,10,0,10" x:Name="TxtBoxFilt" TextChanged="TxtBoxFilt_TextChanged" GotFocus="TxtBoxFilt_GotFocus" LostFocus="TxtBoxFilt_LostFocus"/>
         <ComboBox Grid.Column="1" Width="175" Height="30" VerticalAlignment="Center" Margin="5" FontSize="16" x:Name="CmbBoxSort" SelectionChanged="CmbBoxSort_SelectionChanged">
             <ComboBoxItem Content="Нет"></ComboBoxItem>
             <ComboBoxItem Content="Наименование"></ComboBoxItem>
@@ -43,7 +43,11 @@
                         </Grid.RowDefinitions>
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.RowSpan="3">
                             <Image.Source>
-                                <ImageSource>Resources/picture.png</ImageSource>
+                                <Binding Path="Product.Image">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>Resources/picture.png</ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
                             </Image.Source>
                         </Image>
                         <TextBlock Text="{Binding Product.ProductType.Title}" Grid.Column="1" HorizontalAlignment="Left"></TextBlock>

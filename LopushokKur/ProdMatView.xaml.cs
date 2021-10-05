@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LopushokKur.Model;
+using System.IO;
 
 namespace LopushokKur
 {
@@ -65,11 +66,14 @@ namespace LopushokKur
                         break;
                     }
             }
+
+            if (TxtBoxFilt.Text == null)
+                currentData = currentData.Where(p => p.Product.Title.ToLower().Contains(TxtBoxFilt.Text.ToLower())).ToList();
         }
 
         private void TxtBoxFilt_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            UpdateData();
         }
 
         private void CmbBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -80,6 +84,16 @@ namespace LopushokKur
         private void CmbBoxFilt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             UpdateData();
+        }
+
+        private void TxtBoxFilt_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TxtBoxFilt.Text = null;
+        }
+
+        private void TxtBoxFilt_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TxtBoxFilt.Text = "Введите для поиска";
         }
     }
 }
