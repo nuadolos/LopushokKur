@@ -65,6 +65,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Agent.cs" />
+    <Compile Include="Model\AgentPriorityHistory.cs" />
+    <Compile Include="Model\AgentType.cs" />
+    <Compile Include="Model\LopushBase.cs" />
+    <Compile Include="Model\Material.cs" />
+    <Compile Include="Model\MaterialCountHistory.cs" />
+    <Compile Include="Model\MaterialType.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\ProductCostHistory.cs" />
+    <Compile Include="Model\ProductMaterial.cs" />
+    <Compile Include="Model\ProductSale.cs" />
+    <Compile Include="Model\ProductType.cs" />
+    <Compile Include="Model\Shop.cs" />
+    <Compile Include="Model\Supplier.cs" />
     <Compile Include="Transition.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -84,20 +98,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Agent.cs" />
-    <Compile Include="Model\AgentPriorityHistory.cs" />
-    <Compile Include="Model\AgentType.cs" />
-    <Compile Include="Model\LopushBase.cs" />
-    <Compile Include="Model\Material.cs" />
-    <Compile Include="Model\MaterialCountHistory.cs" />
-    <Compile Include="Model\MaterialType.cs" />
-    <Compile Include="Model\Product.cs" />
-    <Compile Include="Model\ProductCostHistory.cs" />
-    <Compile Include="Model\ProductMaterial.cs" />
-    <Compile Include="Model\ProductSale.cs" />
-    <Compile Include="Model\ProductType.cs" />
-    <Compile Include="Model\Shop.cs" />
-    <Compile Include="Model\Supplier.cs" />
     <Compile Include="ProdMatView.xaml.cs">
       <DependentUpon>ProdMatView.xaml</DependentUpon>
     </Compile>
@@ -138,6 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="paper_0.jpeg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

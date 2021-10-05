@@ -22,7 +22,8 @@ namespace LopushokKur
     /// </summary>
     public partial class ProdMatView : Page
     {
-        public bool SortReverse { get; set; }
+        //public bool SortReverseTitle { get; set; }
+        //public bool SortReverseCost { get; set; }
 
         public ProdMatView()
         {
@@ -48,6 +49,9 @@ namespace LopushokKur
             if (CmbBoxFilt.SelectedIndex > 0)
                 currentData = currentData.Where(p => p.Product.ProductType.Title == (CmbBoxFilt.SelectedValue as ProductType).Title.ToString()).ToList();
 
+            if (TxtBoxFilt.Text != "Введите для поиска")
+                currentData = currentData.Where(p => p.Product.Title.ToLower().Contains(TxtBoxFilt.Text.ToLower()) || p.Material.Title.ToLower().Contains(TxtBoxFilt.Text)).ToList();
+
             switch (CmbBoxSort.SelectedIndex)
             {
                 case 0:
@@ -66,14 +70,12 @@ namespace LopushokKur
                         break;
                     }
             }
-
-            if (TxtBoxFilt.Text == null)
-                currentData = currentData.Where(p => p.Product.Title.ToLower().Contains(TxtBoxFilt.Text.ToLower())).ToList();
         }
 
         private void TxtBoxFilt_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateData();
+            if (TxtBoxFilt.Text != "Введите для поиска")
+                UpdateData();
         }
 
         private void CmbBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -93,7 +95,8 @@ namespace LopushokKur
 
         private void TxtBoxFilt_LostFocus(object sender, RoutedEventArgs e)
         {
-            TxtBoxFilt.Text = "Введите для поиска";
+            if (TxtBoxFilt.Text == "")
+                TxtBoxFilt.Text = "Введите для поиска";
         }
     }
 }

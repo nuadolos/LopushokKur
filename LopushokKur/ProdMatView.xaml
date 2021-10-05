@@ -41,9 +41,9 @@
                             <RowDefinition Height="auto"></RowDefinition>
                             <RowDefinition Height="auto"></RowDefinition>
                         </Grid.RowDefinitions>
-                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10" Grid.RowSpan="3">
+                        <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" Margin="10" Grid.RowSpan="3">
                             <Image.Source>
-                                <Binding Path="Product.Image">
+                                <Binding Path="">
                                     <Binding.TargetNullValue>
                                         <ImageSource>Resources/picture.png</ImageSource>
                                     </Binding.TargetNullValue>
