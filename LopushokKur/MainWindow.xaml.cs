@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LopushokKur.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,17 @@ namespace LopushokKur
             InitializeComponent();
 
             MainFrame.Navigate(new ProdMatView());
+            Transition.MainFrame = MainFrame;
+        }
+
+        private void NextPage_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void PreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

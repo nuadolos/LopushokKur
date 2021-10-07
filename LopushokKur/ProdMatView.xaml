@@ -27,7 +27,7 @@
         </ComboBox>
         <ComboBox HorizontalAlignment="Right" Width="150" Height="30" Margin="5" Grid.Column="2" FontSize="16" Name="CmbBoxFilt" SelectionChanged="CmbBoxFilt_SelectionChanged" DisplayMemberPath="Title"/>
 
-        <ListView Grid.Row="1" Name="LViewProdMat" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" Grid.ColumnSpan="3">
+        <ListView Grid.Row="1" Name="LViewProdMat" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="5" Grid.ColumnSpan="3" SourceUpdated="LViewProdMat_SourceUpdated" ScrollViewer.VerticalScrollBarVisibility="Disabled">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid Grid.Row="1">
@@ -43,10 +43,7 @@
                         </Grid.RowDefinitions>
                         <Image HorizontalAlignment="Center" VerticalAlignment="Center" Stretch="UniformToFill" Margin="10" Grid.RowSpan="3">
                             <Image.Source>
-                                <Binding Path="">
-                                    <Binding.TargetNullValue>
-                                        <ImageSource>Resources/picture.png</ImageSource>
-                                    </Binding.TargetNullValue>
+                                <Binding Path="Product.Image" StringFormat=".//{0}">
                                 </Binding>
                             </Image.Source>
                         </Image>

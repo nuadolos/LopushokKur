@@ -25,6 +25,8 @@ namespace LopushokKur
         //public bool SortReverseTitle { get; set; }
         //public bool SortReverseCost { get; set; }
 
+        public List<ProductMaterial> ItemsProdMat = LopushBase.GetContext().ProductMaterial.ToList();
+
         public ProdMatView()
         {
             InitializeComponent();
@@ -97,6 +99,27 @@ namespace LopushokKur
         {
             if (TxtBoxFilt.Text == "")
                 TxtBoxFilt.Text = "Введите для поиска";
+        }
+
+        private void Index(int page)
+        {
+            var items = LopushBase.GetContext().ProductMaterial.ToList().GetRange(0, 10);
+            var count = LViewProdMat.Items.Count;
+
+            PageViewModel pvm = new PageViewModel(count, 1, 10);
+
+
+            //if (!pvm.HasPreviousPage)
+            //    ;
+            //if (!pvm.HasNextPage)
+            //    ;
+
+
+        }
+
+        private void LViewProdMat_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
         }
     }
 }
