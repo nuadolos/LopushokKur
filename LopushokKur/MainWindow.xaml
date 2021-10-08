@@ -5,27 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LopushokKur"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Icon="./Resources/Лопушок.ico" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60*"/>
-            <RowDefinition Height="324*"/>
-            <RowDefinition Height="35*"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid Background="Azure" Grid.ColumnSpan="3">
             <TextBlock Text="Лопушок" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"></TextBlock>
             <Image Source="Resources/Лопушок.png" HorizontalAlignment="Left"/>
         </Grid>
-        <Grid Grid.Row="2" Background="AliceBlue" Grid.ColumnSpan="3">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="545*"/>
-                <ColumnDefinition Width="215*"/>
-                <ColumnDefinition Width="32*"/>
-            </Grid.ColumnDefinitions>
-            <Button x:Name="PreviousPage" Click="PreviousPage_Click" Visibility="Hidden" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="20" Height="20"></Button>
-            <WrapPanel HorizontalAlignment="Center" Visibility="Hidden" Width="200" Margin="5" Grid.Column="1"></WrapPanel>
-            <Button x:Name="NextPage" Click="NextPage_Click" Visibility="Hidden" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5" Width="20" Height="20" Grid.Column="2"></Button>
-        </Grid>
-        <Frame Grid.Row="1" Name="MainFrame" Grid.ColumnSpan="3"></Frame>
+        <Frame Grid.Row="1" Name="MainFrame"></Frame>
     </Grid>
 </Window>

@@ -28,15 +28,5 @@ namespace LopushokKur
             MainFrame.Navigate(new ProdMatView());
             Transition.MainFrame = MainFrame;
         }
-
-        private void NextPage_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void PreviousPage_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

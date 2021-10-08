@@ -140,9 +140,10 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="products\paper_0.jpeg" />
+    <Resource Include="products\paper_0.jpeg" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="products\paper_20.jpeg" />
     <Resource Include="products\paper_1.jpeg" />
     <Resource Include="products\paper_10.jpeg" />

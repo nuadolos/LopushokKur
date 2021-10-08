@@ -8,28 +8,49 @@ namespace LopushokKur
 {
     class PageViewModel
     {
-        public static int PageNumber { get; set; }
-        public static int TotalPage { get; set; }
+        public int NumberPage { get; set; }
+        public int StartIndex { get; set; }
+        public int CountRangeItems { get; set; }
+        public int CountItems { get; set; }
 
-        public  PageViewModel(int count, int pageNumber, int countItems)
+        public PageViewModel(int numPage, int startIndex)
         {
-            PageNumber = pageNumber;
-            TotalPage = count / countItems;
+            NumberPage = numPage;
+            StartIndex = startIndex;
+            CountRangeItems = 6;
         }
 
-        public static bool HasPreviousPage
+        public int GetTotalPage()
+        {
+            return (int)Math.Ceiling((decimal)CountItems / 6);
+        }
+
+        public bool HasPreviousPage
         {
             get
             {
-                return (PageNumber > 1);
+                return (NumberPage > 1);
             }
         }
 
-        public static bool HasNextPage
+        public bool HasNextPage
         {
             get
             {
-                return (PageNumber < TotalPage);
+                return (NumberPage <= GetTotalPage());
+            }
+        }
+
+        public void GetIndex()
+        {
+            StartIndex = 0;
+
+            if (HasPreviousPage && HasNextPage)
+            {
+                for (int i = 1; i < NumberPage; i++)
+                {
+                    StartIndex += 6;
+                }
             }
         }
     }

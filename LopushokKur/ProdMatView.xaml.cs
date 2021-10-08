@@ -25,7 +25,13 @@ namespace LopushokKur
         //public bool SortReverseTitle { get; set; }
         //public bool SortReverseCost { get; set; }
 
-        public List<ProductMaterial> ItemsProdMat = LopushBase.GetContext().ProductMaterial.ToList();
+        public List<ProductMaterial> ItemsProdMat { get { return LopushBase.GetContext().ProductMaterial.ToList(); } }
+        public int CountItemsProdMat { get { return ItemsProdMat.Count; } }
+
+        public bool CmbBoxSortChanged { get; set; }
+        public bool CmbBoxFiltChanged { get; set; }
+
+        PageViewModel pvm = new PageViewModel(1, 0);
 
         public ProdMatView()
         {
@@ -41,7 +47,10 @@ namespace LopushokKur
             CmbBoxFilt.SelectedIndex = 0;
             CmbBoxSort.SelectedIndex = 0;
 
-            LViewProdMat.ItemsSource = LopushBase.GetContext().ProductMaterial.ToList();
+            pvm.CountItems = CountItemsProdMat;
+            pvm.GetIndex();
+
+            LViewProdMat.ItemsSource = ItemsProdMat.GetRange(pvm.StartIndex, pvm.CountRangeItems);
         }
 
         private void UpdateData()
@@ -49,26 +58,65 @@ namespace LopushokKur
             var currentData = LopushBase.GetContext().ProductMaterial.ToList();
 
             if (CmbBoxFilt.SelectedIndex > 0)
+            {
                 currentData = currentData.Where(p => p.Product.ProductType.Title == (CmbBoxFilt.SelectedValue as ProductType).Title.ToString()).ToList();
 
+                pvm.CountItems = currentData.Count;
+                
+                pvm.GetTotalPage();
+                pvm.GetIndex();
+
+                if (pvm.CountItems < pvm.StartIndex + pvm.CountRangeItems)
+                    pvm.CountRangeItems = CountItemsProdMat - pvm.StartIndex;
+
+                if (pvm.NumberPage == pvm.GetTotalPage())
+                {
+                    NextPage.Visibility = Visibility.Hidden;
+                    pvm.CountRangeItems = 6;
+                }
+            }
+
             if (TxtBoxFilt.Text != "Введите для поиска")
+            {
                 currentData = currentData.Where(p => p.Product.Title.ToLower().Contains(TxtBoxFilt.Text.ToLower()) || p.Material.Title.ToLower().Contains(TxtBoxFilt.Text)).ToList();
+            }
 
             switch (CmbBoxSort.SelectedIndex)
             {
                 case 0:
                     {
-                        LViewProdMat.ItemsSource = currentData.ToList();
+                        try
+                        {
+                            LViewProdMat.ItemsSource = currentData.ToList().GetRange(pvm.StartIndex, pvm.CountRangeItems);
+                        }
+                        catch (Exception)
+                        {
+                            LViewProdMat.ItemsSource = currentData.ToList();
+                        }
                         break;
                     }
                 case 1:
                     {
-                        LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Product.Title).ToList();
+                        try
+                        {
+                            LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Product.Title).ToList().GetRange(pvm.StartIndex, pvm.CountRangeItems);
+                        }
+                        catch (Exception)
+                        {
+                            LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Product.Title).ToList();
+                        }
                         break;
                     }
                 case 2:
                     {
-                        LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Material.Cost).ToList();
+                        try
+                        {
+                            LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Material.Cost).ToList().GetRange(pvm.StartIndex, pvm.CountRangeItems);
+                        }
+                        catch (Exception)
+                        {
+                            LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Material.Cost).ToList();
+                        }
                         break;
                     }
             }
@@ -82,11 +130,16 @@ namespace LopushokKur
 
         private void CmbBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //pvm.NumberPage = 1;
+            //PreviousPage.Visibility = Visibility.Hidden;
             UpdateData();
         }
 
         private void CmbBoxFilt_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            pvm.NumberPage = 1;
+            PreviousPage.Visibility = Visibility.Hidden;
+            NextPage.Visibility = Visibility.Visible;
             UpdateData();
         }
 
@@ -101,25 +154,37 @@ namespace LopushokKur
                 TxtBoxFilt.Text = "Введите для поиска";
         }
 
-        private void Index(int page)
+        private void PreviousPage_Click(object sender, RoutedEventArgs e)
         {
-            var items = LopushBase.GetContext().ProductMaterial.ToList().GetRange(0, 10);
-            var count = LViewProdMat.Items.Count;
+            pvm.NumberPage -= 1;
+            pvm.GetIndex();
+            UpdateData();
 
-            PageViewModel pvm = new PageViewModel(count, 1, 10);
+            if (!pvm.HasPreviousPage)
+                PreviousPage.Visibility = Visibility.Hidden;
 
-
-            //if (!pvm.HasPreviousPage)
-            //    ;
-            //if (!pvm.HasNextPage)
-            //    ;
-
-
+            if (pvm.HasNextPage)
+                NextPage.Visibility = Visibility.Visible;
         }
 
-        private void LViewProdMat_SourceUpdated(object sender, DataTransferEventArgs e)
+        private void NextPage_Click(object sender, RoutedEventArgs e)
         {
+            pvm.NumberPage += 1;
+            pvm.GetIndex();
 
+            if (pvm.CountItems < pvm.StartIndex + pvm.CountRangeItems)
+                pvm.CountRangeItems = CountItemsProdMat - pvm.StartIndex;
+
+            UpdateData();
+
+            if (pvm.NumberPage == pvm.GetTotalPage())
+            {
+                NextPage.Visibility = Visibility.Hidden;
+                pvm.CountRangeItems = 6;
+            }
+
+            if (pvm.HasPreviousPage)
+                PreviousPage.Visibility = Visibility.Visible;
         }
     }
 }
