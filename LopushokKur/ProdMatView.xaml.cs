@@ -60,62 +60,75 @@ namespace LopushokKur
             if (CmbBoxFilt.SelectedIndex > 0)
             {
                 currentData = currentData.Where(p => p.Product.ProductType.Title == (CmbBoxFilt.SelectedValue as ProductType).Title.ToString()).ToList();
-
-                pvm.CountItems = currentData.Count;
-                
-                pvm.GetTotalPage();
-                pvm.GetIndex();
-
-                if (pvm.CountItems < pvm.StartIndex + pvm.CountRangeItems)
-                    pvm.CountRangeItems = CountItemsProdMat - pvm.StartIndex;
-
-                if (pvm.NumberPage == pvm.GetTotalPage())
-                {
-                    NextPage.Visibility = Visibility.Hidden;
-                    pvm.CountRangeItems = 6;
-                }
             }
+
+            pvm.CountItems = currentData.Count;
+
+            pvm.GetTotalPage();
+            pvm.GetIndex();
 
             if (TxtBoxFilt.Text != "Введите для поиска")
             {
                 currentData = currentData.Where(p => p.Product.Title.ToLower().Contains(TxtBoxFilt.Text.ToLower()) || p.Material.Title.ToLower().Contains(TxtBoxFilt.Text)).ToList();
+
+                pvm.CountItems = currentData.Count;
+
+                if (pvm.LessCountRangeItems)
+                {
+                    NextPage.Visibility = Visibility.Hidden;
+                }
+
+                pvm.GetTotalPage();
+                pvm.GetIndex();
             }
 
             switch (CmbBoxSort.SelectedIndex)
             {
                 case 0:
                     {
-                        try
+                        for (int i = pvm.CountRangeItems; i > 0; i--)
                         {
-                            LViewProdMat.ItemsSource = currentData.ToList().GetRange(pvm.StartIndex, pvm.CountRangeItems);
-                        }
-                        catch (Exception)
-                        {
-                            LViewProdMat.ItemsSource = currentData.ToList();
+                            try
+                            {
+                                LViewProdMat.ItemsSource = currentData.ToList().GetRange(pvm.StartIndex, i);
+                                break;
+                            }
+                            catch (Exception)
+                            {
+
+                            }
                         }
                         break;
                     }
                 case 1:
                     {
-                        try
+                        for (int i = pvm.CountRangeItems; i > 0; i--)
                         {
-                            LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Product.Title).ToList().GetRange(pvm.StartIndex, pvm.CountRangeItems);
-                        }
-                        catch (Exception)
-                        {
-                            LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Product.Title).ToList();
+                            try
+                            {
+                                LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Product.Title).ToList().GetRange(pvm.StartIndex, i);
+                                break;
+                            }
+                            catch (Exception)
+                            {
+
+                            }
                         }
                         break;
                     }
                 case 2:
                     {
-                        try
+                        for (int i = pvm.CountRangeItems; i > 0; i--)
                         {
-                            LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Material.Cost).ToList().GetRange(pvm.StartIndex, pvm.CountRangeItems);
-                        }
-                        catch (Exception)
-                        {
-                            LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Material.Cost).ToList();
+                            try
+                            {
+                                LViewProdMat.ItemsSource = currentData.OrderBy(p => p.Material.Cost).ToList().GetRange(pvm.StartIndex, i);
+                                break;
+                            }
+                            catch (Exception)
+                            {
+
+                            }
                         }
                         break;
                     }
@@ -125,13 +138,19 @@ namespace LopushokKur
         private void TxtBoxFilt_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (TxtBoxFilt.Text != "Введите для поиска")
+            {
+                pvm.NumberPage = 1;
+                PreviousPage.Visibility = Visibility.Hidden;
+                NextPage.Visibility = Visibility.Visible;
                 UpdateData();
+            }
         }
 
         private void CmbBoxSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //pvm.NumberPage = 1;
-            //PreviousPage.Visibility = Visibility.Hidden;
+            pvm.NumberPage = 1;
+            PreviousPage.Visibility = Visibility.Hidden;
+            NextPage.Visibility = Visibility.Visible;
             UpdateData();
         }
 
@@ -172,15 +191,11 @@ namespace LopushokKur
             pvm.NumberPage += 1;
             pvm.GetIndex();
 
-            if (pvm.CountItems < pvm.StartIndex + pvm.CountRangeItems)
-                pvm.CountRangeItems = CountItemsProdMat - pvm.StartIndex;
-
             UpdateData();
 
             if (pvm.NumberPage == pvm.GetTotalPage())
             {
                 NextPage.Visibility = Visibility.Hidden;
-                pvm.CountRangeItems = 6;
             }
 
             if (pvm.HasPreviousPage)

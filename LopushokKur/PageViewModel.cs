@@ -25,6 +25,14 @@ namespace LopushokKur
             return (int)Math.Ceiling((decimal)CountItems / 6);
         }
 
+        public bool LessCountRangeItems
+        {
+            get
+            {
+                return (CountItems < CountRangeItems);
+            }
+        }
+
         public bool HasPreviousPage
         {
             get
