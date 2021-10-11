@@ -15,6 +15,6 @@
             <TextBlock Text="Лопушок" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="32"></TextBlock>
             <Image Source="Resources/Лопушок.png" HorizontalAlignment="Left"/>
         </Grid>
-        <Frame Grid.Row="1" Name="MainFrame"></Frame>
+        <Frame Grid.Row="1" Name="MainFrame" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>

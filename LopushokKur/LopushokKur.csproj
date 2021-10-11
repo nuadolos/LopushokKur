@@ -65,6 +65,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddEditPage.xaml.cs">
+      <DependentUpon>AddEditPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Agent.cs" />
     <Compile Include="Model\AgentPriorityHistory.cs" />
     <Compile Include="Model\AgentType.cs" />
@@ -81,6 +84,10 @@
     <Compile Include="Model\Supplier.cs" />
     <Compile Include="PageViewModel.cs" />
     <Compile Include="Transition.cs" />
+    <Page Include="AddEditPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

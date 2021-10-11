@@ -10,5 +10,6 @@ namespace LopushokKur
     class Transition
     {
         public static Frame MainFrame { get; set; }
+        public static object _DataContext { get; set; }
     }
 }

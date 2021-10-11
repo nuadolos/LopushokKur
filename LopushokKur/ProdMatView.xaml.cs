@@ -53,6 +53,12 @@ namespace LopushokKur
             LViewProdMat.ItemsSource = ItemsProdMat.GetRange(pvm.StartIndex, pvm.CountRangeItems);
         }
 
+        private void AddProdMatBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Transition._DataContext = null;
+            Transition.MainFrame.Navigate(new AddEditPage());
+        }
+
         private void UpdateData()
         {
             var currentData = LopushBase.GetContext().ProductMaterial.ToList();
@@ -200,6 +206,17 @@ namespace LopushokKur
 
             if (pvm.HasPreviousPage)
                 PreviousPage.Visibility = Visibility.Visible;
+        }
+
+        private void LViewProdMat_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (LViewProdMat.SelectedItems.Count == 1)
+            {
+                Transition._DataContext = LViewProdMat.SelectedItem;
+                Transition.MainFrame.Navigate(new AddEditPage());
+            }
+            else
+                MessageBox.Show("Редактировать можно лишь один выделенный элемент", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

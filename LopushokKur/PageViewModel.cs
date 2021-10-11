@@ -10,19 +10,18 @@ namespace LopushokKur
     {
         public int NumberPage { get; set; }
         public int StartIndex { get; set; }
-        public int CountRangeItems { get; set; }
+        public int CountRangeItems { get { return 20; } }
         public int CountItems { get; set; }
 
         public PageViewModel(int numPage, int startIndex)
         {
             NumberPage = numPage;
             StartIndex = startIndex;
-            CountRangeItems = 6;
         }
 
         public int GetTotalPage()
         {
-            return (int)Math.Ceiling((decimal)CountItems / 6);
+            return (int)Math.Ceiling((decimal)CountItems / CountRangeItems);
         }
 
         public bool LessCountRangeItems
@@ -57,7 +56,7 @@ namespace LopushokKur
             {
                 for (int i = 1; i < NumberPage; i++)
                 {
-                    StartIndex += 6;
+                    StartIndex += CountRangeItems;
                 }
             }
         }
