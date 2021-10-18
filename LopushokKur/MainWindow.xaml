@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LopushokKur"
         mc:Ignorable="d"
-        Title="Лопушок" Icon="./Resources/Лопушок.ico" MinWidth="800" MinHeight="450">
+        Title="Лопушок" Icon="./Resources/Лопушок.ico" Width="800" Height="450" MinWidth="800" MinHeight="450">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
