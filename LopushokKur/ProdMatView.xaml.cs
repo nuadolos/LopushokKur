@@ -22,8 +22,6 @@ namespace LopushokKur
     /// </summary>
     public partial class ProdMatView : Page
     {
-        //public bool SortReverseTitle { get; set; }
-        //public bool SortReverseCost { get; set; }
 
         public List<ProductMaterial> ItemsProdMat { get { return LopushBase.GetContext().ProductMaterial.ToList(); } }
         public int CountItemsProdMat { get { return ItemsProdMat.Count; } }
@@ -58,7 +56,7 @@ namespace LopushokKur
             Transition._DataContext = null;
             Transition.MainFrame.Navigate(new AddEditPage());
         }
-
+        
         private void UpdateData()
         {
             var currentData = LopushBase.GetContext().ProductMaterial.ToList();
